@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flaky Test Demo</title>
+</head>
+<body>
+<h1>Flaky Test Example</h1>
+<button id="loadDataButton">Load Data</button>
+<br/>
+<br/>
+<div id="dataDisplay"></div>
+
+<script>
+  document.getElementById('loadDataButton').addEventListener('click', () => {
+    const delay = Math.floor(Math.random() * 200);
+    setTimeout(() => {
+      document.getElementById('dataDisplay').textContent = 'Expected Data';
+    }, delay);
+  });
+</script>
+</body>
+</html>

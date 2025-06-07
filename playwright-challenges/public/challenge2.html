@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Challenge 2 - Menu Animation</title>
+    <style>
+      /* All previous styles remain same until menu-button */
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+
+      .form-container {
+        position: relative;
+        width: 400px;
+        min-height: 450px;
+        margin: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        padding: 40px;
+        box-sizing: border-box;
+      }
+
+      .form-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #2196f3;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .input-group {
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        outline: none;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+
+      .input-field:focus {
+        border-color: #2196f3;
+        box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+      }
+
+      .floating-label {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        color: #666;
+        font-size: 14px;
+        background: white;
+        padding: 0 5px;
+      }
+
+      .input-field:focus + .floating-label,
+      .input-field:not(:placeholder-shown) + .floating-label {
+        top: 0;
+        font-size: 12px;
+        color: #2196f3;
+        transform: translateY(-50%) scale(0.9);
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        position: relative;
+        transform: translateX(-100%);
+        animation: moveButton 7s linear forwards;
+      }
+
+      @keyframes moveButton {
+        0% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(20%);
+        }
+        75% {
+          transform: translateX(-10%);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      .submit-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        animation: none;
+        transform: translateX(0);
+      }
+
+      .dashboard {
+        text-align: center;
+        position: relative;
+      }
+
+      .menu-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        margin: 20px auto;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 200px;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: none;
+        overflow: hidden;
+        z-index: 1000;
+      }
+
+      .dropdown-menu.show {
+        display: block;
+      }
+
+      .menu-item {
+        padding: 12px 20px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .menu-item:hover {
+        background: #f5f5f5;
+      }
+
+      .welcome-message {
+        font-size: 24px;
+        color: #2196f3;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <div id="loginForm">
+        <h2 class="form-title">Login</h2>
+        <form id="mainForm">
+          <div class="input-group">
+            <input type="email" class="input-field" id="email" placeholder=" " required />
+            <label class="floating-label" for="email">Email</label>
+          </div>
+
+          <div class="input-group">
+            <input type="password" class="input-field" id="password" placeholder=" " required />
+            <label class="floating-label" for="password">Password</label>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitButton">Sign In</button>
+        </form>
+      </div>
+
+      <div id="dashboard" style="display: none">
+        <div class="welcome-message">Welcome!</div>
+        <p id="userEmail"></p>
+        <div class="dashboard">
+          <button class="menu-button" id="menuButton">My Account</button>
+          <div class="dropdown-menu" id="accountMenu">
+            <div class="menu-item" id="profileOption">Profile</div>
+            <div class="menu-item" id="settingsOption">Settings</div>
+            <div class="menu-item" id="preferencesOption">Preferences</div>
+            <div class="menu-item" id="logoutOption" onclick="logout()">Logout</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById('mainForm');
+      const submitBtn = document.getElementById('submitButton');
+      const loginForm = document.getElementById('loginForm');
+      const dashboard = document.getElementById('dashboard');
+      const menuButton = document.getElementById('menuButton');
+      const accountMenu = document.getElementById('accountMenu');
+      let isMenuOpen = false;
+      let menuClickable = false;
+
+      menuButton.addEventListener('click', () => {
+        if (!menuClickable) {
+          return; // Ignore clicks during delay
+        }
+        toggleMenu();
+      });
+
+      function toggleMenu() {
+        if (!isMenuOpen) {
+          accountMenu.classList.add('show');
+          isMenuOpen = true;
+        } else {
+          closeMenu();
+        }
+      }
+
+      function closeMenu() {
+        accountMenu.classList.remove('show');
+        isMenuOpen = false;
+      }
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          loginForm.style.display = 'none';
+          dashboard.style.display = 'block';
+          document.getElementById('userEmail').textContent = `Logged in as: ${document.getElementById('email').value}`;
+
+          // Menu is visible but not functional yet
+          menuButton.style.display = 'inline-flex';
+          menuClickable = false;
+
+          // Delay actual functionality
+          setTimeout(() => {
+            menuClickable = true;
+            menuButton.setAttribute('data-initialized', 'true'); // Add this line
+          }, 1000);
+        }, 1000);
+      });
+
+      function logout() {
+        form.reset();
+        submitBtn.disabled = false;
+        dashboard.style.display = 'none';
+        loginForm.style.display = 'block';
+        closeMenu();
+        menuClickable = false;
+
+        // Reset button animation
+        submitBtn.style.animation = 'none';
+        submitBtn.offsetHeight;
+        submitBtn.style.animation = null;
+      }
+
+      document.addEventListener('click', e => {
+        if (!e.target.matches('.menu-button') && !e.target.closest('.dropdown-menu') && isMenuOpen) {
+          closeMenu();
+        }
+      });
+
+      // Start with fresh button animation
+      submitBtn.style.animation = 'none';
+      submitBtn.offsetHeight;
+      submitBtn.style.animation = null;
+    </script>
+  </body>
+</html>

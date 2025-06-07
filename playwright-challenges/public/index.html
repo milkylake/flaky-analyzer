@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form Animation Challenges</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+      .container {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        width: 600px;
+        margin: 20px;
+      }
+      .title {
+        text-align: center;
+        color: #2196f3;
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+      .challenge-links {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .challenge-card {
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        transition: all 0.3s ease;
+      }
+      .challenge-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .challenge-title {
+        font-size: 18px;
+        color: #1976d2;
+        margin-bottom: 10px;
+      }
+      .challenge-description {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+      .try-button {
+        display: inline-block;
+        background: #2196f3;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+      .try-button:hover {
+        background: #1976d2;
+        transform: translateY(-1px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Form Animation Challenges</h1>
+      <div class="challenge-links">
+        <div class="challenge-card">
+          <h2 class="challenge-title">Challenge 1</h2>
+          <p class="challenge-description">
+            Basic form with animations and success message display. Shows entered email and password after submission.
+          </p>
+          <a href="/challenge1.html" class="try-button">Try Challenge 1</a>
+        </div>
+        <div class="challenge-card">
+          <h2 class="challenge-title">Challenge 2</h2>
+          <p class="challenge-description">
+            Advanced animations with left-to-right movement and timing challenges for automation.
+          </p>
+          <a href="/challenge2.html" class="try-button">Try Challenge 2</a>
+        </div>
+        <div class="challenge-card">
+          <h2 class="challenge-title">Challenge 3</h2>
+          <p class="challenge-description">
+            Multi-form setup with shared email field locator. Includes login and forgot password flows with validation.
+          </p>
+          <a href="/challenge3.html" class="try-button">Try Challenge 3</a>
+        </div>
+        <div class="challenge-card">
+          <h2 class="challenge-title">Challenge 4</h2>
+          <p class="challenge-description">
+            Professional dashboard with dynamic content loading. Simulates real-world initialization patterns requiring
+            proper load state handling.
+          </p>
+          <a href="/challenge4.html" class="try-button">Try Challenge 4</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

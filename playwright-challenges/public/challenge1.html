@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Challenge 1 - Animated Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+
+      .form-container {
+        position: relative;
+        width: 400px;
+        padding: 30px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .form-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #2196f3;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .input-group {
+        position: relative;
+        margin-bottom: 25px;
+      }
+
+      .floating-label {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        color: #666;
+        font-size: 14px;
+        background: transparent;
+        padding: 0 5px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        outline: none;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .input-field:focus {
+        border-color: #2196f3;
+        box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+      }
+
+      .input-field:focus + .floating-label,
+      .input-field:not(:placeholder-shown) + .floating-label {
+        top: 0;
+        font-size: 12px;
+        background: white;
+        padding: 0 5px;
+        color: #2196f3;
+        transform: translateY(-50%) scale(0.9);
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .submit-btn:hover {
+        background: #1976d2;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+      }
+
+      .submit-btn.loading {
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      .spinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ffffff;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      .submit-btn.loading .spinner {
+        display: block;
+      }
+
+      .submit-btn.loading span {
+        visibility: hidden;
+      }
+
+      .success-message {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.97);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+        color: #4caf50;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .success-message h3 {
+        margin-bottom: 20px;
+        color: #4caf50;
+        font-size: 24px;
+      }
+
+      .success-message p {
+        color: #666;
+        font-size: 16px;
+        margin: 5px 0;
+        font-weight: normal;
+      }
+
+      .success-message.show {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .shake {
+        animation: shake 0.5s ease-in-out;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20%,
+        60% {
+          transform: translateX(-5px);
+        }
+        40%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2 class="form-title">Login Form</h2>
+      <form id="animatedForm">
+        <div class="input-group" id="emailGroup">
+          <input type="email" class="input-field" id="email" name="email" placeholder=" " required />
+          <label class="floating-label" for="email">Email</label>
+        </div>
+
+        <div class="input-group" id="passwordGroup">
+          <input type="password" class="input-field" id="password" name="password" placeholder=" " required />
+          <label class="floating-label" for="password">Password</label>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitButton">
+          <span>Sign In</span>
+          <div class="spinner"></div>
+        </button>
+      </form>
+      <div class="success-message" id="successMessage">
+        <h3>Successfully submitted!</h3>
+        <p id="emailDisplay"></p>
+        <p id="passwordDisplay"></p>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById('animatedForm');
+      const submitBtn = document.getElementById('submitButton');
+      const successMessage = document.getElementById('successMessage');
+      const emailDisplay = document.getElementById('emailDisplay');
+      const passwordDisplay = document.getElementById('passwordDisplay');
+      let isSubmitting = false;
+
+      function showSuccessMessage() {
+        // Get current values
+        const emailValue = document.getElementById('email').value;
+        const passwordValue = document.getElementById('password').value;
+
+        // Display the values
+        emailDisplay.textContent = `Email: ${emailValue}`;
+        passwordDisplay.textContent = `Password: ${passwordValue}`;
+
+        // Show the message
+        successMessage.classList.add('show');
+
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+          form.reset();
+
+          // Ensure form is immediately usable after reset
+          const inputs = form.querySelectorAll('input');
+          inputs.forEach(input => {
+            input.style.visibility = 'visible';
+            input.disabled = false;
+          });
+          submitBtn.disabled = false;
+        }, 2000);
+      }
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        if (isSubmitting) return;
+
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        if (!emailInput.value.includes('@')) {
+          emailInput.parentElement.classList.add('shake');
+          setTimeout(() => {
+            emailInput.parentElement.classList.remove('shake');
+          }, 500);
+          return;
+        }
+
+        isSubmitting = true;
+        submitBtn.classList.add('loading');
+
+        try {
+          // Random delay between 1-3 seconds
+          const delay = Math.random() * 2000 + 1000;
+          await new Promise(resolve => setTimeout(resolve, delay));
+
+          submitBtn.classList.remove('loading');
+          showSuccessMessage();
+        } catch (error) {
+          console.error('Form submission error:', error);
+        } finally {
+          isSubmitting = false;
+          submitBtn.classList.remove('loading');
+        }
+      });
+
+      // Remove shake animation when starting new input
+      document.querySelectorAll('.input-field').forEach(input => {
+        input.addEventListener('input', () => {
+          input.parentElement.classList.remove('shake');
+        });
+      });
+    </script>
+  </body>
+</html>

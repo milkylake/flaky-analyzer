@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Challenge 4 - Dynamic Loading</title>
+    <script>
+      window.isAppReady = false;
+      window.initializeApp = () => {
+        setTimeout(() => (window.isAppReady = true), 500);
+      };
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" onload="window.initializeApp()" defer></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+      }
+      .nav-bar {
+        background: white;
+        padding: 15px 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 24px;
+        color: #2196f3;
+        font-weight: bold;
+      }
+      .main-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 0 20px;
+      }
+      .login-form {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .form-title {
+        text-align: center;
+        color: #2196f3;
+        margin-bottom: 30px;
+        font-size: 24px;
+      }
+      .input-group {
+        margin-bottom: 20px;
+      }
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #666;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+      .input-group input:focus {
+        border-color: #2196f3;
+        outline: none;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .submit-btn:hover {
+        background: #1976d2;
+      }
+      .user-profile {
+        display: none;
+        margin-left: auto;
+      }
+      .profile-menu {
+        position: relative;
+        display: inline-block;
+      }
+      .profile-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        min-width: 150px;
+        display: none;
+        z-index: 1000;
+      }
+      .menu-item {
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .menu-item:hover {
+        background: #f5f5f5;
+      }
+      .show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-bar">
+      <div class="logo">Dashboard</div>
+      <div class="user-profile" id="userProfile">
+        <div class="profile-menu">
+          <button id="profileButton" class="profile-button">
+            <span id="userEmail"></span>
+            <span>▼</span>
+          </button>
+          <div class="dropdown-menu" id="profileMenu">
+            <div class="menu-item" id="logoutOption">Logout</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-container">
+      <div class="login-form" id="loginForm">
+        <h2 class="form-title">Login</h2>
+        <form id="mainForm">
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required />
+          </div>
+          <button type="submit" class="submit-btn" id="submitButton">Sign In</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      let isMenuOpen = false;
+
+      function setupEventHandlers() {
+        if (!window.isAppReady) {
+          console.log('App not ready');
+          return;
+        }
+
+        const profileButton = document.getElementById('profileButton');
+        profileButton.addEventListener('click', function () {
+          const profileMenu = document.getElementById('profileMenu');
+          if (!isMenuOpen) {
+            profileMenu.classList.add('show');
+            isMenuOpen = true;
+          } else {
+            profileMenu.classList.remove('show');
+            isMenuOpen = false;
+          }
+        });
+
+        document.getElementById('mainForm').addEventListener('submit', function (e) {
+          e.preventDefault();
+          loginForm.style.display = 'none';
+          userProfile.style.display = 'block';
+          document.getElementById('userEmail').textContent = document.getElementById('email').value;
+        });
+
+        document.getElementById('logoutOption').addEventListener('click', function () {
+          document.getElementById('mainForm').reset();
+          loginForm.style.display = 'block';
+          userProfile.style.display = 'none';
+          profileMenu.classList.remove('show');
+          isMenuOpen = false;
+          window.isAppReady = false;
+          window.initializeApp();
+        });
+
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('.profile-menu') && isMenuOpen) {
+            profileMenu.classList.remove('show');
+            isMenuOpen = false;
+          }
+        });
+      }
+
+      setupEventHandlers();
+
+      const setupInterval = setInterval(() => {
+        if (window.isAppReady) {
+          setupEventHandlers();
+          clearInterval(setupInterval);
+        }
+      }, 100);
+    </script>
+  </body>
+</html>

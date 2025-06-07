@@ -1,0 +1,93 @@
+[
+  {
+    "id": "b862a406253815a75d4a-48de5e0dd61c2169ec2f",
+    "title": "should show data after delay",
+    "location": "flaky.spec.ts:204:5",
+    "finalStatus": "passed",
+    "isFlaky": true,
+    "attempts": [
+      {
+        "attempt": 0,
+        "status": "failed",
+        "duration": 6311,
+        "error": {
+          "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('#dataDisplay')\nExpected string: \u001b[32m\"Expected Data\"\u001b[39m\nReceived string: \u001b[31m\"\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#dataDisplay')\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n",
+          "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('#dataDisplay')\nExpected string: \u001b[32m\"Expected Data\"\u001b[39m\nReceived string: \u001b[31m\"\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#dataDisplay')\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\n    at /Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/tests/flaky.spec.ts:209:24",
+          "location": {
+            "file": "/Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/tests/flaky.spec.ts",
+            "column": 24,
+            "line": 209
+          },
+          "snippet": "\u001b[0m \u001b[90m 207 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 208 |\u001b[39m   \u001b[36mconst\u001b[39m dataEl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#dataDisplay'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 209 |\u001b[39m   \u001b[36mawait\u001b[39m expect(dataEl)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Expected Data'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 210 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+        },
+        "stdout": [],
+        "stderr": [],
+        "attachments": [
+          {
+            "name": "screenshot",
+            "path": "/Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/test-results/flaky-should-show-data-after-delay-chromium/test-failed-1.png",
+            "contentType": "image/png"
+          },
+          {
+            "name": "trace",
+            "path": "/Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/test-results/flaky-should-show-data-after-delay-chromium/trace.zip",
+            "contentType": "application/zip"
+          }
+        ]
+      },
+      {
+        "attempt": 1,
+        "status": "passed",
+        "duration": 1202,
+        "stdout": [],
+        "stderr": [],
+        "attachments": []
+      },
+      {
+        "attempt": 2,
+        "status": "passed",
+        "duration": 1202,
+        "stdout": [],
+        "stderr": [],
+        "attachments": []
+      },
+      {
+        "attempt": 3,
+        "status": "failed",
+        "duration": 6205,
+        "error": {
+          "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('#dataDisplay')\nExpected string: \u001b[32m\"Expected Data\"\u001b[39m\nReceived string: \u001b[31m\"\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#dataDisplay')\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n",
+          "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator('#dataDisplay')\nExpected string: \u001b[32m\"Expected Data\"\u001b[39m\nReceived string: \u001b[31m\"\"\u001b[39m\nCall log:\n  \u001b[2m- expect.toContainText with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#dataDisplay')\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\u001b[2m  -   locator resolved to <div id=\"dataDisplay\"></div>\u001b[22m\n\u001b[2m  -   unexpected value \"\"\u001b[22m\n\n    at /Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/tests/flaky.spec.ts:209:24",
+          "location": {
+            "file": "/Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/tests/flaky.spec.ts",
+            "column": 24,
+            "line": 209
+          },
+          "snippet": "\u001b[0m \u001b[90m 207 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m1000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 208 |\u001b[39m   \u001b[36mconst\u001b[39m dataEl \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'#dataDisplay'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 209 |\u001b[39m   \u001b[36mawait\u001b[39m expect(dataEl)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Expected Data'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 210 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+        },
+        "stdout": [],
+        "stderr": [],
+        "attachments": [
+          {
+            "name": "screenshot",
+            "path": "/Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/test-results/flaky-should-show-data-after-delay-chromium-retry1/test-failed-1.png",
+            "contentType": "image/png"
+          },
+          {
+            "name": "trace",
+            "path": "/Users/nur/Documents/dev/my/flaky-analyzer/playwright-challenges/test-results/flaky-should-show-data-after-delay-chromium-retry1/trace.zip",
+            "contentType": "application/zip"
+          }
+        ]
+      },
+      {
+        "attempt": 4,
+        "status": "passed",
+        "duration": 1202,
+        "stdout": [],
+        "stderr": [],
+        "attachments": []
+      }
+    ]
+  }
+]
