@@ -68,6 +68,10 @@ This project is a Playwright plugin (`flaky-analyzer`) and an accompanying dashb
     ```
     Open your browser and go to `http://localhost:8080` (or the port indicated in your terminal) to view the dashboard and analyze the test results.
 
+## Testing the Plugin with a Sample Project (`playwright-challenges`)
+
+To test the `flaky-analyzer` plugin effectively, you can use the **`playwright-challenges`** project, originally created by `vasu31dev` ([https://github.com/vasu31dev/playwright-challenges](https://github.com/vasu31dev/playwright-challenges)). This project contains scenarios designed to be flaky or to highlight common issues in UI testing.
+
 ## Authors and contributors
 
 The main contributor Nurislam Z. Ainaliev, student of SPbPU ICSC. The advisor and contributor Vladimir A. Parkhomenko., Seniour Lecturer of SPbPU ICSC.
