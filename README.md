@@ -1,70 +1,79 @@
-# Плагин для анализа Flaky-тестов в Playwright (flaky-analyzer)
+# Playwright Flaky Test Analyzer (flaky-analyzer)
 
-Этот проект представляет собой плагин для Playwright (`flaky-analyzer`) и сопутствующий дашборд (`flaky-analyzer-dashboard`), предназначенные для обнаружения, анализа и помощи в диагностике нестабильных (flaky) тестов в проектах на Playwright. Он собирает подробную информацию о каждой попытке выполнения теста, выявляет тесты с непостоянными результатами и предоставляет веб-интерфейс для визуализации этих результатов и потенциальных причин нестабильности.
+This project is a Playwright plugin (`flaky-analyzer`) and an accompanying dashboard (`flaky-analyzer-dashboard`) designed to detect, analyze, and help diagnose unstable (flaky) tests in Playwright projects. It collects detailed information about each test attempt, identifies tests with inconsistent outcomes, and provides a web interface to visualize these results and potential causes of flakiness.
 
-## Основные компоненты
+## Core Components
 
-1.  **`flaky-analyzer` (Плагин):** Репортер Playwright, который собирает данные о выполнении тестов (статус, длительность, ошибки, вложения, такие как трейсы/скриншоты/видео) и идентифицирует flaky-тесты.
-2.  **`flaky-analyzer-dashboard` (Дашборд):** Веб-приложение, которое читает файл отчет репортера и отображает интерактивную панель для анализа flaky-тестов, показывая детали попыток, сводку ошибок и  потенциальные причины нестабильности.
+1.  **`flaky-analyzer` (Plugin):** A Playwright reporter that collects data on test executions (status, duration, errors, attachments like traces/screenshots/videos) and identifies flaky tests.
+2.  **`flaky-analyzer-dashboard` (Dashboard):** A web application that reads the reporter's output file and displays an interactive dashboard for analyzing flaky tests, showing attempt details, error summaries, and potential reasons for flakiness.
 
-## Требования
+## Requirements
 
-*   Node.js и npm
-*   Проект на Playwright
+*   Node.js and npm
+*   A Playwright project
 
-## Установка
+## Installation
 
-1.  **Клонируйте репозиторий** плагина и дашборда в ваш проект:
+1.  **Clone the repository** (which includes the plugin and dashboard) into your project:
     ```bash
     git clone https://github.com/milkylake/flaky-analyzer
-    cd ..
+    cd flaky-analyzer
     ```
 
-2.  **Установите зависимости для плагина**:
+2.  **Install dependencies for the plugin**:
     ```bash
     cd flaky-analyzer-plugin
     npm install
     cd ..
     ```
 
-3.  **Установите зависимости для дашборда**:
+3.  **Install dependencies for the dashboard**:
     ```bash
     cd flaky-analyzer-dashboard
     npm install
     cd ..
     ```
 
-4.  **Настройте репортер Playwright**:
-    Откройте ваш файл конфигурации Playwright (`playwright.config.ts` или `.js`) и добавьте `flaky-analyzer` в массив `reporter`. Укажите корректный относительный путь к директории плагина, если вы клонировали его в другое место.
+4.  **Configure Playwright Reporter**:
+    Open your Playwright configuration file (`playwright.config.ts` or `.js`) and add `flaky-analyzer` to the `reporter` array. Ensure the relative path to the plugin directory is correct.
     ```typescript
     import { defineConfig } from '@playwright/test';
 
     export default defineConfig({
-      // ... другие настройки
-      retries: process.env.CI ? 2 : 3, // Пример: рекомендуется иметь повторы для обнаружения flaky-тестов
+      // ... other configurations
+      retries: process.env.CI ? 2 : 3, // Example: Recommended to have retries for flaky test detection
       reporter: [
-        ['./flaky-analyzer/flaky-analyzer-plugin'] // Путь к директории плагина
+        ['./flaky-analyzer-plugin'] // Path to the plugin directory (relative to playwright.config.ts)
+                                   // If you cloned `flaky-analyzer` into your project root, this would be
+                                   // './flaky-analyzer/flaky-analyzer-plugin'
       ],
-      // ... другие настройки
+      // ... other configurations
     });
     ```
+    *Adjust the path `'./flaky-analyzer-plugin'` based on where your `playwright.config.ts` is located relative to the cloned `flaky-analyzer-plugin` directory.*
 
-## Использование
+## Usage
 
-1.  **Запустите ваши тесты Playwright** как обычно:
+1.  **Run your Playwright tests** as usual:
     ```bash
     npx playwright test
     ```
-    Во время выполнения плагин `flaky-analyzer` будет собирать данные и по завершении создаст отчет в корневой директории вашего проекта (или там, где запускается Playwright).
+    During execution, the `flaky-analyzer` plugin will collect data and, upon completion, create a report file in your project's root directory (or where Playwright is run).
 
-2.  **Запустите Дашборд для анализа**:
-    Перейдите в директорию дашборда и запустите его:
+2.  **Start the Analysis Dashboard**:
+    Navigate to the dashboard directory and start it:
     ```bash
-    cd flaky-analyzer-dashboard
+    cd flaky-analyzer-dashboard // Or the correct path to your dashboard directory
     npm run dev
     ```
-    Откройте браузер и перейдите по адресу `http://localhost:8080` (или по порту, указанному в вашем терминале), чтобы просмотреть дашборд и проанализировать результаты тестов.
+    Open your browser and go to `http://localhost:8080` (or the port indicated in your terminal) to view the dashboard and analyze the test results.
 
-## Руководитель
+## Authors and contributors
 
-*   **В.А. Пархоменко** (ст. преподаватель ФГАОУ ВО «СПбПУ»)
+The main contributor Nurislam Z. Ainaliev, student of SPbPU ICSC. The advisor and contributor Vladimir A. Parkhomenko., Seniour Lecturer of SPbPU ICSC.
+
+The project is completed during the preparation of Nurislam Z. Ainaliev work under course Testing of software at SPbPU Institute of Computer Science and Cybersecurity (SPbPU ICSC).
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
